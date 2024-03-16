@@ -1,0 +1,10 @@
+[package]
+name = "ipsj-template"
+version = "0.0.0"
+entrypoint = "template.typ"
+authors = ["mkpoli <mkpo@mkpo.li>"]
+license = "MIT"
+description = "IPSJ Technial Report template"
+
+[template]
+entrypoint = "main.typ"

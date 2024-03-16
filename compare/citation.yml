@@ -1,0 +1,66 @@
+okumura:
+  type: Book
+  title: 改訂第5版LaTeX2e美文書作成入門
+  author: 奥村, 晴彦
+  publisher: 技術評論社
+  date: 2010
+  language: ja
+
+companion:
+  type: Book
+  title: The LaTeX Companion
+  author: ['Goossens, M.', 'Mittelbach, F.', 'Samarin, A.']
+  publisher: Addison Wesley
+  address: Reading, Massachusetts
+  date: 1993
+  language: en
+
+book1:
+  type: Book
+  title: 理科系の作文技術
+  author: 木下, 是雄
+  publisher: 中公新書
+  date: 1981
+  language: ja
+
+book2:
+  type: Book
+  title: The Elements of Style, Fourth Edition
+  author: ['Strunk W. J.', 'White E.B.']
+  publisher: Longman
+  date: 2000
+  language: en
+
+book3:
+  type: Book
+  title: The Elements of Technical Writing
+  author: ['Blake G.', 'Bly R.W.']
+  publisher: Longman
+  date: 1993
+  language: en
+
+book4:
+  type: Book
+  title: Handbook of Writing for the Mathematical Sciences
+  author: Higham N.J.
+  publisher: SIAM
+  date: 1998
+  language: en
+
+webpage1:
+  type: Web
+  title: 投稿者マニュアル(online)
+  author: 情報処理学会論文誌ジャーナル編集委員会
+  url:
+    value: http://www.ipsj.or.jp/journal/submit/manual/j_manual.html
+    date: 2007-04-05
+  language: ja
+
+webpage2:
+  type: Web
+  title: べからず集(online)
+  author: 情報処理学会論文誌ジャーナル編集委員会
+  url:
+    value: http://www.ipsj.or.jp/journal/manual/bekarazu.html
+    date: 2011-09-15
+  language: ja

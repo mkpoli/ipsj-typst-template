@@ -1,0 +1,178 @@
+/// CSL言語の制限を超えたカスタマイズのための擬似的な参考文献リストを生成する
+///
+/// yaml-data (dictionary): Hayagriva YAML形式のデータ
+#let fake-bibliography(yaml-data) = {
+  // set text(fill: blue)
+  // TODO:
+  // locate(loc => {
+  //   let all-refs = query(cite, loc)
+  //   repr(all-refs)
+  // })
+  let format-entry(b) = {
+    let language = if "language" in b { b.language } else { "en" }
+
+    let colon = if language == "ja" { "：" } else { ": "}
+    let comma = if language == "ja" { "，" } else { ", " }
+    let period = if language == "ja" { "．" } else { ". " }
+    let parenthesize(text) = "(" + text + ")"
+
+    // 著者
+    if "author" in b {
+      if type(b.author) == str {
+        b.author = (b.author, )
+      }
+      let replaced = b.author
+        .map((a) => if language == "ja" { a.replace(", ", "") } else { a })
+
+      if language == "ja" or replaced.len() == 1 {
+        replaced.join(comma)
+      } else {
+        replaced.slice(0, -1).join(comma) + " and " + replaced.at(-1)
+      }
+    }
+
+    if "editor" in b {
+      if type(b.editor) == str {
+        b.editor = (b.editor, )
+      }
+      let replaced = b.editor
+        .map((a) => if language == "ja" { a.replace(", ", "") } else { a })
+
+      if language == "ja" or replaced.len() == 1 {
+        replaced.join(comma)
+      } else {
+        replaced.slice(0, -1).join(comma) + " and " + replaced.at(-1)
+      }
+    }
+
+    colon
+
+    if language == "en" and b.type == "Book" {
+      emph(b.title)
+    } else {
+      b.title
+    }
+
+    if "note" in b {
+      " "
+      parenthesize(b.note)
+    }
+
+    if "journal" in b {
+      comma
+      if language == "en" {
+        emph(b.journal)
+      } else {
+        b.journal
+      }
+    }
+
+    if "series" in b {
+      comma
+      b.series
+    }
+
+    if "volume" in b {
+      comma
+      "Vol. "
+      str(b.volume)
+    }
+
+    if "number" in b {
+      comma
+      "No. "
+      str(b.number)
+    }
+
+    if "publisher" in b {
+      comma
+      b.publisher
+    }
+
+    if "address" in b {
+      comma
+      b.address
+    }
+
+    let format-date(date) = {
+      "("
+      let splitted = str(date).split("-")
+      splitted.join(".")
+      ")"
+    }
+
+    if "date" in b {
+      [ ]
+      format-date(b.date)
+    }
+
+    if "url" in b {
+      let url = none
+      let access = none
+      if type(b.url) == str {
+        url = b.url
+      } else {
+        url = b.url.value
+        access = b.url.date
+      }
+
+      if url != none {
+        comma
+        [入手先 ]
+        "⟨"
+        url
+        "⟩"
+      }
+
+      if access != none {
+        [ ]
+        format-date(access)
+      }
+    }
+
+    if "page-range" in b {
+      comma
+      "pp. "
+      b.page-range
+    }
+
+    if "doi" in b {
+      comma
+      "DOI: "
+      link("https://doi.org/" + b.doi, b.doi)
+    }
+
+    if "serial-number" in b {
+      if type(b.serial-number) == str {
+        comma
+        b.serial-number
+      }
+
+      for (key, number) in b.serial-number.pairs() {
+        comma
+        if key == "doi" {
+          "DOI: "
+          link("https://doi.org/" + number, number)
+        } else {
+          upper(key) + ": "
+          number
+        }
+      }
+    }
+
+    period
+  }
+  
+  locate(loc => {
+    let citations = query(ref.where(element: none), loc).map((r) => str(r.target)).dedup()
+
+    // repr(citations.len())
+    set text(size: 8.5pt)  
+    enum(
+      numbering: "[1]",
+      indent: 0em,
+      body-indent: 2em,
+      ..citations.map((c) => format-entry(yaml-data.at(c)))
+    )
+  })
+}
