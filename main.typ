@@ -38,10 +38,19 @@
   ],
   keywords-en: ("IPSJ", "Technical Report", "Typst"),
   [
+    = はじめに
     #roremu(50)
     $E=m c^2$
     #roremu(50, offset: 50)
     $ E=m c^2 $
     #roremu(50, offset: 100)
-  ]
+  
+    = 本論
+
+    #roremu(500)
+
+    = おわりに
+
+    #roremu(150)
+  ],
 )
