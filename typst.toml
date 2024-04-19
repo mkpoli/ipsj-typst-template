@@ -2,7 +2,7 @@
 name = "ipsj-template"
 version = "0.0.0"
 entrypoint = "lib.typ"
-authors = ["mkpoli <mkpo@mkpo.li>"]
+authors = ["mkpoli <mkpoli@mkpo.li>"]
 license = "MIT"
 description = "IPSJ Technial Report template"
 
