@@ -84,12 +84,12 @@
   ]]
 }
 
-#let abstract-block-en(abstract) = {
+#let abstract-block-en(abstract, sans-font) = {
   align(center)[#block(width: 38em)[
     #set text(size: 0.85em)
     #set par(justify: true, leading: 0.55em)
     #set align(left)
-    **Abstract:**#abstract
+    #text(style: "italic", font: sans-font, weight: "bold")[Abstract:] #abstract
   ]]
 }
 
@@ -515,7 +515,7 @@
     v(1em)
   }
   if not is-empty(abstract-en) {
-    abstract-block-en(abstract-en)
+    abstract-block-en(abstract-en, fonts.sans)
   }
   v(2em)
   { // 本文
