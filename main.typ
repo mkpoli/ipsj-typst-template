@@ -1,5 +1,7 @@
 #import "lib.typ": techrep, acknowledgement, numbering-affiliate, numbering-paffiliate, numbering-email, table, fake-bibliography
 
+#import "@preview/roremu:0.1.0": roremu
+
 #techrep(
   title: [Typstによる情報処理研究報告の作成法],
   title-en: "How to write IPSJ SIG Technical Report with Typst",
@@ -7,8 +9,34 @@
   affiliations: (
     "IPSJ": [情報処理学会 \ IPSJ, Chiyoda, Tokyo 101–0062, Japan],
   ),
-  // [
-  //   こんにちは,
-  //   aaa s
-  // ]
+  authors: (
+    (
+      name: "情報 太郎",
+      affiliations: ("IPSJ",),
+      email: "joho.taro@ipsj.or.jp"
+    ),
+    (
+      name: "処理 花子",
+      affiliations: ("IPSJ",),
+      email: none
+    ),
+    (
+      name: "学会 次郎",
+      affiliations: ("IPSJ", "JU"),
+      email: "gakkai.jiro@ipsj.or.jp"
+    )
+  ),
+  abstract: [
+    #roremu(250)
+  ],
+  abstract-en: [
+    #lorem(150)
+  ],
+  [
+    #roremu(50)
+    $E=m c^2$
+    #roremu(50, offset: 50)
+    $ E=m c^2 $
+    #roremu(50, offset: 100)
+  ]
 )
