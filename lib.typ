@@ -101,6 +101,7 @@
 
 /// 情報処理学会研究報告テンプレート
 ///
+/// - lang (string): 言語
 /// - title (string): 和文タイトル
 /// - replace-punctuations (bool): 句読点（、。）をコンマ・ピリオド「，．」に置き換えるかどうか
 /// - authors (array): 著者情報
@@ -116,6 +117,7 @@
 /// - copyright (auto, string): コピーライト表記
 /// -> content
 #let techrep(
+  lang: "ja",
   title: none,
   // title: "Typstによる情報処理研究報告の作成法",
   title-en: none,
@@ -165,7 +167,11 @@
   }
 
   // 書体設定
-  set text(font: (fonts.serif, fonts.serif-ja), size: 9.2pt)
+  set text(
+    font: (fonts.serif, fonts.serif-ja),
+    size: 9.2pt,
+    lang: lang
+  )
   show raw: it => {
     set text(font: (fonts.mono, fonts.mono-ja), size: 1.25em)
     it
@@ -512,6 +518,7 @@
     ])
   }
   if not is-empty(title-en) {
+    set text(lang: "en")
     title-block(title-en, en: true)
     // author-block(authors)
     v(2em)
@@ -520,7 +527,7 @@
   }
   let author-names-en = authors.map(it => it.at("name-en", default: it.name))
   if not is-empty(author-names-en) {
-    set text(size: 1.05em)
+    set text(size: 1.05em, lang: "en")
     align(center,
       author-names-en
         .map(it => upper(it))
@@ -529,9 +536,11 @@
     v(2em)
   }
   if not is-empty(abstract-en) {
+    set text(lang: "en")
     abstract-block-en(abstract-en, fonts.sans)
   }
-  if not is-empty(keywords) {
+  if not is-empty(keywords-en) {
+    set text(lang: "en")
     v(0.85em)
     align(center, block(width: 8.5pt * 47)[
       #align(left)[
