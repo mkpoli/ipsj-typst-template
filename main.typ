@@ -12,16 +12,19 @@
   authors: (
     (
       name: "情報 太郎",
+      name-en: "Taro Joho",
       affiliations: ("IPSJ",),
       email: "joho.taro@ipsj.or.jp"
     ),
     (
       name: "処理 花子",
+      name-en: "Hanako Shori",
       affiliations: ("IPSJ",),
       email: none
     ),
     (
       name: "学会 次郎",
+      name-en: "Jiro Gakkai",
       affiliations: ("IPSJ", "JU"),
       email: "gakkai.jiro@ipsj.or.jp"
     )

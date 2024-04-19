@@ -514,6 +514,16 @@
   } else {
     v(1em)
   }
+  let author-names-en = authors.map(it => it.at("name-en", default: it.name))
+  if not is-empty(author-names-en) {
+    set text(size: 1.05em)
+    align(center,
+      author-names-en
+        .map(it => upper(it))
+        .join(h(1em))
+    )
+    v(2em)
+  }
   if not is-empty(abstract-en) {
     abstract-block-en(abstract-en, fonts.sans)
   }
