@@ -57,7 +57,7 @@
 }
 
 #let is-empty(it) = {
-  it == none or it == "" or it == []
+  it == none or it == "" or it == [] or it == ("",)
 }
 
 // #let LaTeX = {
