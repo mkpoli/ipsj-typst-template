@@ -85,9 +85,9 @@
 }
 
 #let abstract-block-en(abstract, sans-font) = {
-  align(center)[#block(width: 38em)[
-    #set text(size: 0.85em)
-    #set par(justify: true, leading: 0.55em)
+  set text(size: 8.5pt)
+  align(center)[#block(width: 47em)[
+    #set par(justify: true, leading: 0.5em)
     #set align(left)
     #text(style: "italic", font: sans-font, weight: "bold")[Abstract:] #abstract
   ]]
