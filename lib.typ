@@ -103,6 +103,9 @@
 ///
 /// - lang (string): 言語
 /// - title (string): 和文タイトル
+/// - title-en (string): 英文タイトル
+/// - affiliations (dictionary): 所属
+/// - paffiliations (dictionary): 現所属
 /// - replace-punctuations (bool): 句読点（、。）をコンマ・ピリオド「，．」に置き換えるかどうか
 /// - authors (array): 著者情報
 /// - fonts (dictionary): フォントの設定 ```Typst
@@ -111,10 +114,15 @@
 ///     serif // 欧文フォント（セリフ体）
 ///     sans // 欧文フォント（サンセリフ体）
 /// ```
-/// - keywords (array): キーワード
+/// - abstract (string): 和文概要
+/// - abstract-en (string): 英文概要
+/// - keywords (array): 和文キーワード
+/// - keywords-en (array): 英文キーワード
 /// - date (auto, string): 日付
 /// - volume (string): 巻数
+/// - number (int): 号数
 /// - copyright (auto, string): コピーライト表記
+/// - appendix (array): 付録
 /// -> content
 #let techrep(
   lang: "ja",

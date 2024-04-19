@@ -11,7 +11,7 @@
 )
 
 = テンプレート
-#let docs = tidy.parse-module(read("../template.typ"))
+#let docs = tidy.parse-module(read("../lib.typ"))
 #show-module(docs)
 
 = ライブラリー
