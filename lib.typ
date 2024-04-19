@@ -140,6 +140,7 @@
   abstract: "",
   abstract-en: "",
   keywords: ("",),
+  keywords-en: ("",),
   date: auto,
   volume: str(datetime.today().year()) + "-XX-1XX",
   number: 0,
@@ -526,6 +527,12 @@
   }
   if not is-empty(abstract-en) {
     abstract-block-en(abstract-en, fonts.sans)
+  }
+  if not is-empty(keywords) {
+    align(center, block(width: 50em)[
+      #text(style: "italic", font: fonts.sans, weight: "bold")[Keywords:]
+      #keywords-en.join(", ")
+    ])
   }
   v(2em)
   { // 本文

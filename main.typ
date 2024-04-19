@@ -32,9 +32,11 @@
   abstract: [
     #roremu(250)
   ],
+  keywords: ("情報処理学会", "研究報告", "Typst"),
   abstract-en: [
     #lorem(150)
   ],
+  keywords-en: ("IPSJ", "Technical Report", "Typst"),
   [
     #roremu(50)
     $E=m c^2$
