@@ -1,4 +1,4 @@
-#import "template.typ": techrep, acknowledgement, numbering-affiliate, numbering-paffiliate, numbering-email, table, fake-bibliography
+#import "lib.typ": techrep, acknowledgement, numbering-affiliate, numbering-paffiliate, numbering-email, table, fake-bibliography
 
 #techrep(
   title: [Typstによる情報処理研究報告の作成法],
