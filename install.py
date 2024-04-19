@@ -9,10 +9,41 @@ import subprocess
 
 # Read package info
 with open("typst.toml", "r") as f:
-    package = toml.load(f).get("package")
+    data = toml.load(f)
+
+    package = data.get("package")
+    template = data.get("template")
     if package is None:
         print("No package info found in typst.toml")
         sys.exit(1)
+    if template is None:
+        print("No template info found in typst.toml")
+        sys.exit(1)
+
+SRC_DIR = Path("src")
+if not SRC_DIR.exists() and not SRC_DIR.is_dir():
+    print("src directory not found")
+    sys.exit(1)
+
+TEMPLATE_DIR = Path("template")
+if not TEMPLATE_DIR.exists():
+    TEMPLATE_DIR.mkdir(parents=True, exist_ok=True)
+
+TEMPLATE_ENTRY = template.get("entry")
+
+# Compile the package template for local usage
+with (
+    open(SRC_DIR / template.get("entry", "main.typ"), "r") as fi,
+    open(TEMPLATE_DIR / template.get("entry", "main.typ"), "w") as fo,
+):
+    main = fi.read()
+    main = main.replace(
+        '#import "../lib.typ":',
+        f'#import "@local/{package["name"]}:{package["version"]}":',
+    )
+    fo.write(main)
+    print(f"Successfully compiled {template.get('entry', 'main.typ')}")
+
 
 # `$XDG_DATA_HOME` or `~/.local/share` on Linux
 # `~/Library/Application Support` on macOS
@@ -40,10 +71,9 @@ target.mkdir(parents=True, exist_ok=True)
 
 source = Path(".")
 
-REQUIRED_FILES = ["template.typ", "typst.toml", "lib"]
+REQUIRED_FILES = ["lib.typ", "typst.toml", "lib", "template"]
 
 for pattern in REQUIRED_FILES:
-    print(pattern)
     for file in source.glob(pattern):
         if file.is_dir():
             shutil.copytree(file, target / file.name)
