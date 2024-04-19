@@ -19,3 +19,4 @@ categories = ["paper", "report"]
 
 [template]
 entrypoint = "main.typ"
+thumbnail = "thumbnail.png"

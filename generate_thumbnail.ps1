@@ -1,0 +1,1 @@
+pdftoppm main.pdf thumbnail -png -f 1 -l 1 -singlefile
