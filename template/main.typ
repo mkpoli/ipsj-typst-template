@@ -1,4 +1,4 @@
-#import "lib.typ": techrep, acknowledgement, numbering-affiliate, numbering-paffiliate, numbering-email, table, fake-bibliography
+#import "../lib.typ": techrep, acknowledgement, numbering-affiliate, numbering-paffiliate, numbering-email, table, fake-bibliography
 
 #import "@preview/roremu:0.1.0": roremu
 
