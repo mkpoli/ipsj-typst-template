@@ -504,8 +504,11 @@
   // v(3em)
   abstract-block(abstract)
   if not is-empty(keywords) {
-    align(center, block(width: 50em)[
-      *キーワード*：#keywords.join(", ")
+    v(0.85em)
+    align(center, block(width: 8.5pt * 47)[
+      #align(left)[
+        *キーワード*：#keywords.join(", ")
+      ]
     ])
   }
   if not is-empty(title-en) {
@@ -529,9 +532,12 @@
     abstract-block-en(abstract-en, fonts.sans)
   }
   if not is-empty(keywords) {
-    align(center, block(width: 50em)[
-      #text(style: "italic", font: fonts.sans, weight: "bold")[Keywords:]
-      #keywords-en.join(", ")
+    v(0.85em)
+    align(center, block(width: 8.5pt * 47)[
+      #align(left)[
+        #text(style: "italic", font: fonts.sans, weight: "bold")[Keywords:]
+        #keywords-en.join(", ")
+      ]
     ])
   }
   v(2em)
