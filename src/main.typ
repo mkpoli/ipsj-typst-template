@@ -39,7 +39,7 @@
   keywords-en: ("IPSJ", "Technical Report", "Typst"),
   [
     = はじめに
-    #roremu(50)
+    #roremu(50)@Word
     $E=m c^2$
     #roremu(50, offset: 50)
     $ E=m c^2 $
@@ -47,10 +47,14 @@
   
     = 本論
 
-    #roremu(500)
+    #roremu(500)@LaTeX
 
     = おわりに
 
-    #roremu(150)
+    #roremu(150)@XeLaTeX
   ],
+  bibliography: [
+    #bibliography("refs.yml", title: "参考文献")
+    #fake-bibliography(yaml("refs.yml"))
+  ]
 )
