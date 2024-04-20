@@ -5,7 +5,6 @@ import toml
 import shutil
 import os
 import sys
-import subprocess
 
 # Read package info
 with open("typst.toml", "r") as f:
@@ -32,6 +31,27 @@ if not TEMPLATE_DIR.exists():
 TEMPLATE_ENTRY = template.get("entry")
 
 # Compile the package template for local usage
+for file in SRC_DIR.glob("*.*"):
+    if file.suffix == ".pdf":
+        continue
+
+    if file.name == template.get("entry", "main.typ"):
+        with (
+            open(file, "r") as fi,
+            open(TEMPLATE_DIR / template.get("entry", "main.typ"), "w") as fo,
+        ):
+            main = fi.read()
+            main = main.replace(
+                '#import "../lib.typ":',
+                f'#import "@local/{package["name"]}:{package["version"]}":',
+            )
+            fo.write(main)
+            print(f"Compiled {template.get('entry', 'main.typ')} into {TEMPLATE_DIR}")
+        continue
+
+    shutil.copy(file, TEMPLATE_DIR / file.name)
+    print(f"Copied {file.name} into {TEMPLATE_DIR}")
+
 with (
     open(SRC_DIR / template.get("entry", "main.typ"), "r") as fi,
     open(TEMPLATE_DIR / template.get("entry", "main.typ"), "w") as fo,
@@ -73,10 +93,22 @@ source = Path(".")
 
 REQUIRED_FILES = ["lib.typ", "typst.toml", "lib", "template"]
 
+file_map = {}
+
 for pattern in REQUIRED_FILES:
     for file in source.glob(pattern):
         if file.is_dir():
-            shutil.copytree(file, target / file.name)
+            for file in file.glob("**/*"):
+                if file.suffix == ".pdf":
+                    continue
+                file_map[file] = target / file.relative_to(source)
+                # shutil.copy(file, target / file.relative_to(source))
+            # shutil.copytree(file, target / file.name)
         else:
-            shutil.copy(file, target / file.name)
-            print(f"Successfully copied {file.name} into {target}")
+            file_map[file] = target / file.name
+
+for src, dst in file_map.items():
+    if not dst.parent.exists():
+        dst.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy(src, dst)
+    print(f"Copied {src} into {target}")
