@@ -5,6 +5,8 @@
 #import "lib/number.typ": n
 #import "@preview/tablex:0.0.8": tablex
 
+#let std-bibliography = bibliography
+
 #let numbering-affiliate = "1"
 #let numbering-paffiliate = "†1"
 #let numbering-email = "a)"
@@ -157,6 +159,7 @@
   copyright: auto,
   replace-punctuations: true,
   appendix: [],
+  bibliography: none, 
   ..doc
 ) = {
   // メタデータ
@@ -504,13 +507,6 @@
     set text(size: 9.2pt)
     it
   }
-  show bibliography: it => {
-    {
-      // set text(fill: green)
-      set text(size: 0pt)
-      it
-    }
-  }
 
   // 前付け
   title-block(title)
@@ -563,17 +559,20 @@
     show par: set block(spacing: 8pt)
     // show par: set block(spacing: 1em, above: 0.5em, below: 0.5em)
 
-    for part in doc.pos() {
+    for (i, part) in doc.pos().enumerate() {
       if type(part) == content {
         columns(2, gutter: 5%, [
           #v(5pt)
           #part
+          #if i == doc.pos().len() - 1 {
+            show std-bibliography: set text(size: 0pt)
+            bibliography
+          }
         ])
       } else {
         part.value
       }
     }
-
   }
   
   if appendix != [] {
