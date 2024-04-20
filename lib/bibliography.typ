@@ -166,13 +166,21 @@
   locate(loc => {
     let citations = query(ref.where(element: none), loc).map((r) => str(r.target)).dedup()
 
+    // If no citations are found, list all entries to prevent user confusion
+    // TODO: Add an option to allow unreferenced entries to be shown
+    let formatted-entries = if citations.len() == 0 {
+      yaml-data.values().map((value) => format-entry(value))
+    } else {
+      citations.map((c) => format-entry(yaml-data.at(c)))
+    }
+
     // repr(citations.len())
-    set text(size: 8.5pt)  
+    set text(size: 8.5pt)
     enum(
       numbering: "[1]",
       indent: 0em,
       body-indent: 2em,
-      ..citations.map((c) => format-entry(yaml-data.at(c)))
+      ..formatted-entries
     )
   })
 }
