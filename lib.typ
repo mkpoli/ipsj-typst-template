@@ -125,6 +125,7 @@
 /// - number (int): 号数
 /// - copyright (auto, string): コピーライト表記
 /// - appendix (array): 付録
+/// - bibliography (content): 参考文献
 /// -> content
 #let techrep(
   lang: "ja",
