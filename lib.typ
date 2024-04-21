@@ -7,14 +7,6 @@
 
 #let std-bibliography = bibliography
 
-#let numbering-affiliate = "1"
-#let numbering-paffiliate = "†1"
-#let numbering-email = "a)"
-
-#let footnote-affiliate = grouped-footnote.with("1")
-#let footnote-paffiliate = grouped-footnote.with("†1")
-#let footnote-email = grouped-footnote.with("a)")
-
 // TODO: 2段組を採用しており，左右の段で行の基準線の位置が一致することを原則としている．
 
 // TODO: また，節見出しなど，
@@ -483,6 +475,8 @@
       entry.note.body
     )
   }
+  // 一般的な脚注
+  set footnote(numbering: footnote-numbering)
   // it
 
   // TODO:
@@ -571,6 +565,34 @@
     for (i, part) in doc.pos().enumerate() {
       if type(part) == content {
         columns(2, gutter: 5%, [
+          #if i == 0 {
+            hide(context {
+              // 表題脚注があるケースに対応するため
+              let current-counter = counter(footnote).get()
+
+              // 所属の脚注
+              counter(footnote).update(0)
+              for affiliation in affiliations.values() {
+                footnote(affiliation, numbering: footnote-numbering-affiliate)
+              }
+
+              // 現所属の脚注
+              counter(footnote).update(0)
+              for paffiliation in paffiliations.values() {
+                footnote(paffiliation, numbering: footnote-numbering-paffiliate)
+              }
+
+              // メールアドレスの脚注
+              counter(footnote).update(0)
+              for email in emails {
+                footnote(email, numbering: footnote-numbering-email)
+              }
+
+              // 本文の脚注に戻す
+              counter(footnote).update(current-counter)
+            })
+          }
+
           #v(5pt)
           #part
           #if i == doc.pos().len() - 1 {

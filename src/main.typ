@@ -9,6 +9,9 @@
   affiliations: (
     "IPSJ": [情報処理学会 \ IPSJ, Chiyoda, Tokyo 101–0062, Japan],
   ),
+  paffiliations: (
+    "JU": [現在，情報処理大学 \ Presently with Johoshori University]
+  ),
   authors: (
     (
       name: "情報 太郎",
@@ -41,9 +44,9 @@
     = はじめに
     #roremu(50)@Word
     $E=m c^2$
-    #roremu(50, offset: 50)
+    #roremu(50, offset: 50)#footnote("脚注の例")
     $ E=m c^2 $
-    #roremu(50, offset: 100)
+    #roremu(50, offset: 100)#footnote("脚注の例その2")
   
     = 本論
 
