@@ -126,6 +126,10 @@
 /// - copyright (auto, string): コピーライト表記
 /// - appendix (array): 付録
 /// - bibliography (content): 参考文献
+/// - footnote-numbering (str, function): 脚注番号の形式（一般）
+/// - footnote-numbering-email (str, function): 脚注番号の形式（メールアドレス）
+/// - footnote-numbering-affiliate (str, function): 脚注番号の形式（所属）
+/// - footnote-numbering-paffiliate (str, function): 脚注番号の形式（現所属）
 /// -> content
 #let techrep(
   lang: "ja",
@@ -160,7 +164,11 @@
   copyright: auto,
   replace-punctuations: true,
   appendix: [],
-  bibliography: none, 
+  bibliography: none,
+  footnote-numbering: (..num) => "*" + str(num.pos().at(0)),
+  footnote-numbering-email: "a)",
+  footnote-numbering-affiliate: "1",
+  footnote-numbering-paffiliate: "†1",
   ..doc
 ) = {
   // メタデータ
@@ -424,7 +432,7 @@
         .filter(affiliation => affiliation in author.affiliations)
 
       for (key, affiliation) in current-affiliations.enumerate() {
-        let footnote-marker = super(numbering(numbering-affiliate, key + 1))
+        let footnote-marker = super(numbering(footnote-numbering-affiliate, key + 1))
         footnote-markers.push(footnote-marker)
       }
 
@@ -433,12 +441,12 @@
         .filter(affiliation => affiliation in author.affiliations)
 
       for (key, affiliation) in current-paffiliations.enumerate() {
-        let footnote-marker = super(numbering(numbering-paffiliate, key + 1))
+        let footnote-marker = super(numbering(footnote-numbering-paffiliate, key + 1))
         footnote-markers.push(footnote-marker)
       }
 
       if author.email != none {
-        footnote-markers.push(super(numbering(numbering-email, emails.position(it => it == author.email) + 1)))
+        footnote-markers.push(super(numbering(footnote-numbering-email, emails.position(it => it == author.email) + 1)))
       }
 
       for (i, footnote-marker) in footnote-markers.enumerate() {
