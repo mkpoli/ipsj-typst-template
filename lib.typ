@@ -300,14 +300,19 @@
   let l(tag, value) = raw(tag + " = " + repr(value), lang: "typst", block: true)
 
   let emails = authors.map(author => author.email).filter(it => it != none)
-  let author-block(authors) = {
+  let author-block(authors, lang: "ja") = {
     set align(center)
     set text(size: 1.25em)
     v(1.25em)
-    
+
     let label-map = (:)
     for (i, author) in authors.enumerate() {
-      author.name
+      if lang == "ja" {
+        author.name
+      } else {
+        set text(0.85em, lang: "en")
+        upper(author.at("name-en", default: author.name))
+      }
       h(0pt, weak: true)
       let footnote-markers = ()
 
@@ -341,8 +346,12 @@
       }
       h(1em)
     }
-
-    v(2.8em)
+    if lang == "en" {
+      v(1.5em)
+    } else {
+      v(2.8em)
+    }
+  
   }
   set footnote.entry(
     separator: line(length: 50%, stroke: 0.5pt)
@@ -410,20 +419,9 @@
   if not is-empty(title-en) {
     set text(lang: "en")
     title-block(title-en, en: true)
-    // author-block(authors)
-    v(2em)
+    author-block(authors, lang: "en")
   } else {
     v(1em)
-  }
-  let author-names-en = authors.map(it => it.at("name-en", default: it.name))
-  if not is-empty(author-names-en) {
-    set text(size: 1.05em, lang: "en")
-    align(center,
-      author-names-en
-        .map(it => upper(it))
-        .join(h(1em))
-    )
-    v(2em)
   }
   if not is-empty(abstract-en) {
     set text(lang: "en")
