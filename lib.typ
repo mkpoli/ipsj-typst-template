@@ -344,7 +344,9 @@
           super(",")
         }
       }
-      h(1em)
+      if (i != authors.len() - 1) {
+        h(1em)
+      }
     }
     if lang == "en" {
       v(1.5em)
