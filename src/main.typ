@@ -52,6 +52,13 @@
 
     #roremu(500)@LaTeX
 
+    = コードブロック
+    ```
+    fn main() {
+      println!("Hello, world!");
+    }
+    ```
+
     = おわりに
 
     #roremu(150)@XeLaTeX
