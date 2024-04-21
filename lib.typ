@@ -1,4 +1,3 @@
-#import "lib/footnote.typ": footnotes, grouped-footnote
 #import "lib/mixed-font.typ": mixed as mixed-font
 #import "lib/latex.typ": draw-TeX
 #import "lib/bibliography.typ": fake-bibliography
@@ -299,73 +298,6 @@
 
   /// Debug
   let l(tag, value) = raw(tag + " = " + repr(value), lang: "typst", block: true)
-    
-  // let author-item(author, affiliation-map: (), paffiliation-map: (), already-used: ()) = {
-  //   set super(typographic: false)
-  //   let (name, affiliations, email) = author
-
-  //   let footnotes = ()
-
-  //   let already-used = ()
-
-
-  //   l(affiliations, affiliations)
-  //   repr(affiliations)
-
-  //   // dictionary<ref-key: string, affliation: string>
-  //   let footnotes-map = (:)
-  //   for affiliation in affiliations {
-  //     l("CURRENT-AFFILIATION", affiliation)
-
-  //     l("already-used", already-used)
-  //     already-used.push(affiliation)
-  //     // if affiliation in already-used {
-  //     //   "Seen"
-  //     //   continue
-  //     // }
-
-  //     // let affiliation-content = if affiliation in paffiliation-map {
-  //     //   paffiliation-map.at(affiliation)
-  //     // } else if affiliation in affiliation-map {
-  //     //   affiliation-map.at(affiliation)
-  //     // } else {
-  //     //   panic("Unknown affiliation: " + affiliation)
-  //     // }
-
-
-
-
-  //       // footnotes-map.at(affiliation)
-  //   }
-
-  //   // repr(footnotes-map)
-
-  //   // for affiliation in affiliations {
-  //   //   if affiliation in affiliation-map {
-  //   //     if affiliation in paffiliation-map {
-  //   //       panic("Affiliation " + affiliation + " is duplicated")
-  //   //     }
-  //   //     footnotes.push(footnote-affiliate(affiliation-map.at(affiliation)))
-  //   //   } else if affiliation in paffiliation-map {
-  //   //     footnotes.push(footnote-paffiliate(paffiliation-map.at(affiliation)))
-  //   //   } else {
-  //   //     panic("Unknown affiliation: " + affiliation)
-  //   //   }
-  //   // }
-    
-  //   // for (k, v) in affiliations.pairs() {
-  //   //   footnotes.push(footnote-affiliate(v))
-  //   // }
-  //   // let affiliation-footnotes = affiliations.map(footnote-affiliate)
-
-
-  //   if email != none and email != "" {
-  //     footnotes.push(footnote-email(email))
-  //   }
-  //   // #affiliations
-  //   set text(cjk-latin-spacing: none)
-  //   [#name#h(0pt, weak: true)#footnotes.join[#super[,]]]
-  // }
 
   let emails = authors.map(author => author.email).filter(it => it != none)
   let author-block(authors) = {
@@ -374,46 +306,6 @@
     v(1.25em)
     
     let label-map = (:)
-
-    // for author in authors {
-    //   // l("CURRENT-AUTHOR", author)
-    //   // let (name, affiliations, email) = author
-    //   author.name
-
-
-    //   // l("CURRENT-AFFILIATIONS", affiliations)
-    //   // for affiliation in author.affiliations {
-    //   //   l("CURRENT-AFFILIATION", affiliation)
-
-    //   //   if affiliation in label-map {
-    //   //     l("label-map.at(affiliation)", label-map.at(affiliation))
-    //   //     // ref(label-map.at(affiliation))
-    //   //     let the-label = label-map.at(affiliation)
-    //   //     locate(loc => query(the-label, loc).first())
-    //   //   } else {
-    //   //     let new-label = label("aff:" + affiliation)
-    //   //     label-map.insert(affiliation, new-label)
-    //   //     [#footnote-affiliate()(affiliation) #new-label]
-    //   //   }
-
-
-    //   //   l("label-map", label-map)
-
-    //   //   // if affiliation in already-used {
-    //   //   //   // ref(label("aff:" + affiliation))
-    //   //   //   ref(label-map.at(affiliation))
-    //   //   // } else {
-        
-    //   //   //   label-map.at(affiliation) = label("aff:" + affiliation)
-    //   //   // }
-
-    //   //   // already-used.push(affiliation)
-
-    //   // }
-
-    //   // author-item(author, affiliation-map: affiliations, paffiliation-map: paffiliations)
-    //   h(1em)
-    // }
     for (i, author) in authors.enumerate() {
       author.name
       h(0pt, weak: true)
@@ -447,13 +339,7 @@
           super(",")
         }
       }
-
-      // for affiliation in author.affiliations {
-        // repr(affiliations.keys().position()
-        // repr(affiliations.keys().position(it => it == affiliation))
-      // }
       h(1em)
-      // link(super(authors),
     }
 
     v(2.8em)
@@ -463,8 +349,6 @@
   )
 
   set footnote.entry(indent: 0pt)
-  // show footnote: it => {
-  // }
   show footnote.entry: entry => {
     grid(
       columns: (3em, 1fr),
@@ -477,7 +361,6 @@
   }
   // 一般的な脚注
   set footnote(numbering: footnote-numbering)
-  // it
 
   // TODO:
   // if replace-punctuations {
