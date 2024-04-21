@@ -477,7 +477,7 @@
     grid(
       columns: (3em, 1fr),
       numbering(
-        "1",
+        entry.note.numbering,
         ..counter(footnote).at(entry.note.location())
       ),
       entry.note.body
