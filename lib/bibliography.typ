@@ -10,20 +10,39 @@
   //   repr(all-refs)
   // })
   let format-entry(b) = {
-    let language = if "language" in b { b.language } else { "en" }
+    let language = if "language" in b {
+      b.language
+    } else {
+      "en"
+    }
 
-    let colon = if language == "ja" { "：" } else { ": "}
-    let comma = if language == "ja" { "，" } else { ", " }
-    let period = if language == "ja" { "．" } else { ". " }
+    let colon = if language == "ja" {
+      "："
+    } else {
+      ": "
+    }
+    let comma = if language == "ja" {
+      "，"
+    } else {
+      ", "
+    }
+    let period = if language == "ja" {
+      "．"
+    } else {
+      ". "
+    }
     let parenthesize(text) = "(" + text + ")"
 
     // 著者
     if "author" in b {
       if type(b.author) == str {
-        b.author = (b.author, )
+        b.author = (b.author,)
       }
-      let replaced = b.author
-        .map((a) => if language == "ja" { a.replace(", ", "") } else { a })
+      let replaced = b.author.map(a => if language == "ja" {
+        a.replace(", ", "")
+      } else {
+        a
+      })
 
       if language == "ja" or replaced.len() == 1 {
         replaced.join(comma)
@@ -34,10 +53,13 @@
 
     if "editor" in b {
       if type(b.editor) == str {
-        b.editor = (b.editor, )
+        b.editor = (b.editor,)
       }
-      let replaced = b.editor
-        .map((a) => if language == "ja" { a.replace(", ", "") } else { a })
+      let replaced = b.editor.map(a => if language == "ja" {
+        a.replace(", ", "")
+      } else {
+        a
+      })
 
       if language == "ja" or replaced.len() == 1 {
         replaced.join(comma)
@@ -179,15 +201,15 @@
 
     period
   }
-  
+
   locate(loc => {
-    let citations = query(ref.where(element: none), loc).map((r) => str(r.target)).dedup()
+    let citations = query(ref.where(element: none), loc).map(r => str(r.target)).dedup()
 
     // If no citations are found, list all entries to prevent user confusion
     let formatted-entries = if citations.len() == 0 {
-      yaml-data.values().map((value) => format-entry(value))
+      yaml-data.values().map(value => format-entry(value))
     } else {
-      citations.map((c) => format-entry(yaml-data.at(c)))
+      citations.map(c => format-entry(yaml-data.at(c)))
     }
 
     /// Entries that are not cited

@@ -47,7 +47,7 @@
     #roremu(50, offset: 50)#footnote("脚注の例")
     $ E=m c^2 $
     #roremu(50, offset: 100)#footnote("脚注の例その2")
-  
+
     = 本論
 
     #roremu(500)@LaTeX
