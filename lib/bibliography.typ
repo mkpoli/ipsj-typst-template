@@ -96,13 +96,13 @@
       if "volume" in b.parent {
         comma
         "Vol. "
-        str(b.volume)
+        str(b.parent.volume)
       }
 
       if "issue" in b.parent {
         comma
         "No. "
-        str(b.issue)
+        str(b.parent.issue)
       }
     }
 
