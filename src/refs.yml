@@ -28,3 +28,11 @@ XeLaTeX:
   date: '2016-01-13'
   author: ['情報, 太郎', '処理, 花子', '学会, 次郎']
   url: https://github.com/ken1row/IPSJ-techrep-xelatex
+
+Unused:
+  type: Book
+  language: en
+  title: Unused Book
+  author: ['John Doe', 'Jane May']
+  publisher: The University
+  date: '2024'

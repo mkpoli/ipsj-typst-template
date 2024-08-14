@@ -65,6 +65,6 @@
   ],
   bibliography: [
     #bibliography("refs.yml", title: "参考文献")
-    #fake-bibliography(yaml("refs.yml"))
+    #fake-bibliography(yaml("refs.yml"), show-unused: false)
   ]
 )

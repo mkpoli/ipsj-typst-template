@@ -1,7 +1,8 @@
 /// CSL言語の制限を超えたカスタマイズのための擬似的な参考文献リストを生成する
 ///
-/// yaml-data (dictionary): Hayagriva YAML形式のデータ
-#let fake-bibliography(yaml-data) = {
+/// - yaml-data (dictionary): Hayagriva YAML形式のデータ
+/// - show-unused (boolean): 文内未参照のエントリーを表示するかどうか
+#let fake-bibliography(yaml-data, show-unused: false) = {
   // set text(fill: blue)
   // TODO:
   // locate(loc => {
@@ -183,11 +184,18 @@
     let citations = query(ref.where(element: none), loc).map((r) => str(r.target)).dedup()
 
     // If no citations are found, list all entries to prevent user confusion
-    // TODO: Add an option to allow unreferenced entries to be shown
     let formatted-entries = if citations.len() == 0 {
       yaml-data.values().map((value) => format-entry(value))
     } else {
       citations.map((c) => format-entry(yaml-data.at(c)))
+    }
+
+    /// Entries that are not cited
+    let rest-entries = if show-unused {
+      let used-entries = citations.map(c => yaml-data.at(c))
+      yaml-data.values().filter(e => not used-entries.contains(e)).map(format-entry)
+    } else {
+      ()
     }
 
     // repr(citations.len())
@@ -196,7 +204,8 @@
       numbering: "[1]",
       indent: 0em,
       body-indent: 2em,
-      ..formatted-entries
+      ..formatted-entries,
+      ..rest-entries,
     )
   })
 }
