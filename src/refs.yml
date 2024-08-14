@@ -5,7 +5,9 @@ LaTeX:
   date: '2018-10-29'
   page-range: '1-6'
   author: ['情報, 太郎', '処理, 花子', '学会, 次郎']
-  journal: 情報処理学会研究報告
+  parent:
+    type: Periodical
+    title: 情報処理学会研究報告
   url: https://www.ipsj.or.jp/journal/submit/style.html
 
 Word:
@@ -14,7 +16,9 @@ Word:
   title: MS-Wordによる研究報告作成のガイド（第3.5版）
   date: '2023-09-18'
   author: ['寺田, 真敏', '西田, 豊明', '植村, 俊亮']
-  journal: 情報処理学会研究報告
+  parent:
+    type: Periodical
+    title: 情報処理学会研究報告
   url: https://www.ipsj.or.jp/journal/submit/style.html
 
 XeLaTeX:

@@ -58,12 +58,28 @@
       parenthesize(b.note)
     }
 
-    if "journal" in b {
-      comma
-      if language == "en" {
-        emph(b.journal)
-      } else {
-        b.journal
+    // Journal/Book of an article
+    if "parent" in b {
+
+      if "title" in b.parent {
+        comma
+        if language == "en" {
+          emph(b.parent.title)
+        } else {
+          (b.parent.title)
+        }
+      }
+
+      if "volume" in b.parent {
+        comma
+        "Vol. "
+        str(b.volume)
+      }
+
+      if "issue" in b.parent {
+        comma
+        "No. "
+        str(b.issue)
       }
     }
 
@@ -78,10 +94,10 @@
       str(b.volume)
     }
 
-    if "number" in b {
+    if "issue" in b {
       comma
       "No. "
-      str(b.number)
+      str(b.issue)
     }
 
     if "publisher" in b {
