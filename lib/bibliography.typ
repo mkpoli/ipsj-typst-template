@@ -202,8 +202,8 @@
     period
   }
 
-  locate(loc => {
-    let citations = query(ref.where(element: none), loc).map(r => str(r.target)).dedup()
+  context {
+    let citations = query(ref.where(element: none)).map(r => str(r.target)).dedup()
 
     // If no citations are found, list all entries to prevent user confusion
     let formatted-entries = if citations.len() == 0 {
@@ -229,5 +229,5 @@
       ..formatted-entries,
       ..rest-entries,
     )
-  })
+  }
 }
