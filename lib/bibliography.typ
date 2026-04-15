@@ -3,6 +3,9 @@
 /// - yaml-data (dictionary): Hayagriva YAML形式のデータ
 /// - show-unused (boolean): 文内未参照のエントリーを表示するかどうか
 #let fake-bibliography(yaml-data, show-unused: false) = {
+  if yaml-data == none {
+    return none
+  }
   // set text(fill: blue)
   // TODO:
   // locate(loc => {
