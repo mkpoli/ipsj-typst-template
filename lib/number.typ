@@ -1,13 +1,22 @@
 #let n(num, thousands: ",", decimal: ".") = {
   let parts = str(num).split(".")
   let decimal_part = if parts.len() == 2 { parts.at(1) }
-  let integer_part = parts.at(0).rev().clusters().enumerate()
-    .map((item) => {
+  let integer_part = parts
+    .at(0)
+    .rev()
+    .clusters()
+    .enumerate()
+    .map(item => {
       let (index, value) = item
-      return value + if calc.rem(index, 3) == 0 and index != 0 {
-        thousands
-      }
-    }).rev().join("")
+      return (
+        value
+          + if calc.rem(index, 3) == 0 and index != 0 {
+            thousands
+          }
+      )
+    })
+    .rev()
+    .join("")
   return integer_part + if decimal_part != none { decimal + decimal_part }
 }
 

@@ -1,30 +1,33 @@
-#import "../template.typ": techrep, acknowledgement, numbering-affiliate, numbering-paffiliate, numbering-email, table, fake-bibliography
+#import "../template.typ": (
+  acknowledgement, fake-bibliography, numbering-affiliate, numbering-email,
+  numbering-paffiliate, table, techrep,
+)
 #import "@preview/tablex:0.0.8": hlinex
 
 #set list(marker: "□")
 
 #let affiliations = (
-    "IPSJ": [情報処理学会 \ IPSJ, Chiyoda, Tokyo 101–0062, Japan],
+  "IPSJ": [情報処理学会 \ IPSJ, Chiyoda, Tokyo 101–0062, Japan],
 )
-#let paffiliations =  (
-  "JU": [現在，情報処理大学 \ Presently with Johoshori University]
+#let paffiliations = (
+  "JU": [現在，情報処理大学 \ Presently with Johoshori University],
 )
 #let authors = (
   (
     name: "情報 太郎",
     affiliations: ("IPSJ",),
-    email: "joho.taro@ipsj.or.jp"
+    email: "joho.taro@ipsj.or.jp",
   ),
   (
     name: "処理 花子",
     affiliations: ("IPSJ",),
-    email: none
+    email: none,
   ),
   (
     name: "学会 次郎",
     affiliations: ("IPSJ", "JU"),
-    email: "gakkai.jiro@ipsj.or.jp"
-  )
+    email: "gakkai.jiro@ipsj.or.jp",
+  ),
 )
 
 #let emails = authors.map(author => author.email).filter(it => it != none)
@@ -43,24 +46,24 @@
     "IPSJ": [情報処理学会 \ IPSJ, Chiyoda, Tokyo 101–0062, Japan],
   ),
   paffiliations: (
-    "JU": [現在，情報処理大学 \ Presently with Johoshori University]
+    "JU": [現在，情報処理大学 \ Presently with Johoshori University],
   ),
   authors: (
     (
       name: "情報 太郎",
       affiliations: ("IPSJ",),
-      email: "joho.taro@ipsj.or.jp"
+      email: "joho.taro@ipsj.or.jp",
     ),
     (
       name: "処理 花子",
       affiliations: ("IPSJ",),
-      email: none
+      email: none,
     ),
     (
       name: "学会 次郎",
       affiliations: ("IPSJ", "JU"),
-      email: "gakkai.jiro@ipsj.or.jp"
-    )
+      email: "gakkai.jiro@ipsj.or.jp",
+    ),
   ),
   abstract: [
     本稿は，情報処理学会研究報告に投稿する原稿を執筆する際の注意点等をまとめたものである．\
@@ -95,19 +98,19 @@
         ..for (i, content) in affiliations.values().enumerate() {
           (
             super(numbering(numbering-affiliate, i + 1)),
-            content
+            content,
           )
         },
         ..for (i, content) in paffiliations.values().enumerate() {
           (
             super(numbering(numbering-paffiliate, i + 1)),
-            content
+            content,
           )
         },
         ..for (i, content) in emails.enumerate() {
           (
             super(numbering(numbering-email, i + 1)),
-            content
+            content,
           )
         }
       )
@@ -119,7 +122,7 @@
     情報処理学会論文誌ジャーナルのLaTeXスタイルファイルを含む論文執筆キットは
 
     #quote(block: true)[
-    `http://www.ipsj.or.jp/jip/submit/style.html`
+      `http://www.ipsj.or.jp/jip/submit/style.html`
     ]
 
     からダウンロードすることができる．論文執筆キットは以下のファイルを含んでいる．
@@ -154,7 +157,7 @@
     Adobeのpdf readerで読めることを確認した後，
 
     #quote(block: true)[
-    `https://ipsj1.i-product.biz/ipsjsig/**`
+      `https://ipsj1.i-product.biz/ipsjsig/**`
     ]
 
     \(\*\*部分は研究会の略称，DBS等)の研究会投稿システムにて，指示にし従い投稿する．
@@ -224,7 +227,7 @@
     == 表題・著者名等
     <表題著者名等>
     表題，著者名とその所属，および概要を前述のコマンドや環境により#strong[和文と
-    英文の双方について];定義した後，`\maketitle` によって出力する．
+      英文の双方について];定義した後，`\maketitle` によって出力する．
 
     === 表題
     <表題>
@@ -362,7 +365,7 @@
         *Fig. 1* Single column figure with caption \
         explicitly broken by \\\\.
       ],
-      supplement: "図"
+      supplement: "図",
     ))
 
     === eqnarray環境
@@ -390,7 +393,7 @@
     を挿入して改行したほうが良い結果となることがしばしばある （
     の英文見出しを参照）． 図の参照は `\figref{<`ラベル`>}` を用いて行なう．
 
-        また紙面スペースの節約のために， 1つの `figure`（または
+    また紙面スペースの節約のために， 1つの `figure`（または
     `table`）環境の中に複数の図表を並べて表示したい場合には， と
     のように個々の図表と各々の `\caption`/`\ecaption` を `minipage`
     環境に入れることで実現できる． なお図と表が混在する場合， `minipage`
@@ -405,7 +408,8 @@
     どのような大きさのフォントを使用しても構わない（ 参照）．
     また図の中身として，encapsulate
     されたPostScriptファイル（いわゆるEPSファイル）を読み込むこともできる．読み込みのため
-  ], (
+  ],
+  (
     type: "figure",
     value: [
       #place(top + center, float: true)[
@@ -415,75 +419,73 @@
         #show par: it => align(center, it)
         // #show raw: it => align(center, it)
         #figure(
-        ```
-        \begin{figure*}[t]
-        <図本体の指定>
-        \caption{<和文見出し>}
-        \ecaption{<英文見出し>}
-        \label{~$dots.h$~}
-        \end{figure*}
-        ```,
-        caption: [2 段幅の図\ *Fig. 3* Double column figure.]
+          ```
+          \begin{figure*}[t]
+          <図本体の指定>
+          \caption{<和文見出し>}
+          \ecaption{<英文見出し>}
+          \label{~$dots.h$~}
+          \end{figure*}
+          ```,
+          caption: [2 段幅の図\ *Fig. 3* Double column figure.],
         )
         <fig:double>
       ]
-    ]
+    ],
   ),
   [
-    
-    #place(left + top, float: true, 
-      [
-        #grid(
-          columns: 2,
-          gutter: 1em,
-          [
-            #figure(
-              ```
-              \begin{minipage}[t]%
-                {0.5\columnwidth}
-              \CaptionType{table}
-              \caption{…}
-              \ecaption{…}
-              \label{…}
-              \makebox[\textwidth][c]{%
-              \begin{tabular}[t]{lcr}
-              \hline\hline
-              left&center&right\\\hline
-              L1&C1&R1\\
-              L2&C2&R2\\\hline
-              \end{tabular}}
-              \end{minipage}
-              ```,
-              caption: [
-                表1の中身
-              ],
-              supplement: [図]
-            )<fig:left>
-          ],
-          figure(
-            [
-              #table(
-                columns: 3,
-                rows: (1.65em, auto, auto),
-                auto-vlines: false,
-                header-rows: 2,
-                align: center + horizon,
-                // align: center + horizon,
-                "left", "center", "right",
-                "L1", "C1", "R1",
-                "L2", "C2", "R2"
-              ) <tab:right>
-            ],
+
+    #place(left + top, float: true, [
+      #grid(
+        columns: 2,
+        gutter: 1em,
+        [
+          #figure(
+            ```
+            \begin{minipage}[t]%
+              {0.5\columnwidth}
+            \CaptionType{table}
+            \caption{…}
+            \ecaption{…}
+            \label{…}
+            \makebox[\textwidth][c]{%
+            \begin{tabular}[t]{lcr}
+            \hline\hline
+            left&center&right\\\hline
+            L1&C1&R1\\
+            L2&C2&R2\\\hline
+            \end{tabular}}
+            \end{minipage}
+            ```,
             caption: [
-              @fig:left で作成した表
-              *Table 1* A table built by
-    Fig. 2
+              表1の中身
             ],
-            supplement: [表]
-          ) 
-        ) 
-      ],
-    )
+            supplement: [図],
+          )<fig:left>
+        ],
+        figure(
+          [
+            #table(
+              columns: 3,
+              rows: (1.65em, auto, auto),
+              auto-vlines: false,
+              header-rows: 2,
+              align: center + horizon,
+              // align: center + horizon,
+              "left", "center", "right",
+              "L1", "C1", "R1",
+              "L2", "C2", "R2",
+            ) <tab:right>
+          ],
+          caption: [
+            @fig:left で作成した表
+            *Table 1* A table built by
+            Fig. 2
+          ],
+          supplement: [表],
+        ),
+      )
+    ])
 
     #figure(
       [
@@ -499,19 +501,19 @@
           [row1], [item 1,1], [item 2,1], [---],
           [row2], [---], [item 2,2], [item 3,2],
           [row3], [item 1,3], [item 2,3], [item 3,3],
-          [row4], [item 1,4], [item 2,4], [item 3,4]
+          [row4], [item 1,4], [item 2,4], [item 3,4],
         ) <tab:right>
       ],
       caption: [
         表の例 \
         *Table 2* An Example of Table.
       ],
-      supplement: [表]
-    ) 
+      supplement: [表],
+    )
     には，プリアンブルで
 
     #quote(block: true)[
-    `\usepackage{graphicx}`
+      `\usepackage{graphicx}`
     ]
 
     を行った上で， `\includegraphics` コマンドを図を埋め込む箇所に置き，
@@ -537,13 +539,13 @@
     参照されたラベルは自動的にソートされ， `[]`でそれぞれ区切られる．
 
     #quote(block: true)[
-    文献 `\cite{companion,okumura}` はLaTeXの総合的な解説書である．
+      文献 `\cite{companion,okumura}` はLaTeXの総合的な解説書である．
     ]
 
     と書くと；
 
     #quote(block: true)[
-    文献#cite(<okumura>);#cite(<companion>);はLaTeXの総合的な解説書である．
+      文献#cite(<okumura>);#cite(<companion>);はLaTeXの総合的な解説書である．
     ]
 
     が得られる．
@@ -687,22 +689,26 @@
     論文の書き方を示した．内容的にまだ不十分の部分が多いため，意見，要望等を
 
     #quote(block: true)[
-    `editt@ipsj.or.jp`
+      `editt@ipsj.or.jp`
     ]
 
     までお寄せ頂きたい．
 
 
     #acknowledgement[
-    A4横型に対するガイドを基に，本稿を作成した．
-    クラスファイルの作成においては，
-    京都大学の中島　浩氏にさまざまなご教示を頂き，
-    さらにBiBTeX関連ファイルの利用についても快諾頂いたことを深謝する．
-    また，A4横型に対するガイドを作成された当時の編集委員会の担当者に深謝する．
+      A4横型に対するガイドを基に，本稿を作成した．
+      クラスファイルの作成においては，
+      京都大学の中島　浩氏にさまざまなご教示を頂き，
+      さらにBiBTeX関連ファイルの利用についても快諾頂いたことを深謝する．
+      また，A4横型に対するガイドを作成された当時の編集委員会の担当者に深謝する．
     ]
 
-    #bibliography("citation.yml", title: "参考文献", full: true, style: "./ipsj.csl")
+    #bibliography(
+      "citation.yml",
+      title: "参考文献",
+      full: true,
+      style: "./ipsj.csl",
+    )
     #fake-bibliography(yaml("citation.yml"))
-  ]
-
+  ],
 )

@@ -86,7 +86,6 @@
 
     // Journal/Book of an article
     if "parent" in b {
-
       if "title" in b.parent {
         comma
         if language == "en" {
@@ -206,7 +205,9 @@
   }
 
   context {
-    let citations = query(ref.where(element: none)).map(r => str(r.target)).dedup()
+    let citations = query(ref.where(element: none))
+      .map(r => str(r.target))
+      .dedup()
 
     // If no citations are found, list all entries to prevent user confusion
     let formatted-entries = if citations.len() == 0 {
@@ -218,7 +219,10 @@
     /// Entries that are not cited
     let rest-entries = if show-unused {
       let used-entries = citations.map(c => yaml-data.at(c))
-      yaml-data.values().filter(e => not used-entries.contains(e)).map(format-entry)
+      yaml-data
+        .values()
+        .filter(e => not used-entries.contains(e))
+        .map(format-entry)
     } else {
       ()
     }

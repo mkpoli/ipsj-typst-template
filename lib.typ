@@ -32,20 +32,33 @@
 
   tablex(
     ..range(columns).map(it => []),
-    map-hlines: h => (..h, stroke: if (
-      type(named.at("header-rows", default: none)) == int and h.y <= named.header-rows + 1
-    ) or h.y == rows + 1 { 0.5pt } else {}),
-    map-vlines: v => (..v, stroke: if v.x == named.at("header-columns", default: none) { 0.5pt } else {}),
+    map-hlines: h => (
+      ..h,
+      stroke: if (
+        type(named.at("header-rows", default: none)) == int
+          and h.y <= named.header-rows + 1
+      )
+        or h.y == rows + 1 { 0.5pt } else {},
+    ),
+    map-vlines: v => (
+      ..v,
+      stroke: if v.x == named.at("header-columns", default: none) {
+        0.5pt
+      } else {},
+    ),
     ..args,
-    rows: (1pt, ..{
-      if "rows" not in named or type(named.rows) == int {
-        range(rows).map(it => auto)
-      } else if type(named.rows) == array {
-        named.rows
-      } else {
-        panic("Invalid argument: rows")
-      }
-    })
+    rows: (
+      1pt,
+      ..{
+        if "rows" not in named or type(named.rows) == int {
+          range(rows).map(it => auto)
+        } else if type(named.rows) == array {
+          named.rows
+        } else {
+          panic("Invalid argument: rows")
+        }
+      },
+    ),
   )
 }
 
@@ -130,11 +143,13 @@
   // title-en: "How to write IPSJ SIG Technical Report with Typst",
   affiliations: (:),
   paffiliations: (:),
-  authors: ((
-    name: "情報 太郎",
-    affiliations: ("IPSJ",),
-    email: "joho.taro@ipsj.or.jp"
-  ),),
+  authors: (
+    (
+      name: "情報 太郎",
+      affiliations: ("IPSJ",),
+      email: "joho.taro@ipsj.or.jp",
+    ),
+  ),
   fonts: (
     sans-ja: "Noto Sans CJK JP",
     serif-ja: "Noto Serif CJK JP",
@@ -143,7 +158,7 @@
     // serif: "Noto Serif"
     serif: "New Computer Modern",
     // mono: "Noto Sans Mono"
-    mono: "New Computer Modern Mono"
+    mono: "New Computer Modern Mono",
   ),
   abstract: "",
   abstract-en: "",
@@ -160,7 +175,7 @@
   footnote-numbering-email: "a)",
   footnote-numbering-affiliate: "1",
   footnote-numbering-paffiliate: "†1",
-  ..doc
+  ..doc,
 ) = {
   // メタデータ
   set document(
@@ -174,14 +189,16 @@
   }
 
   if copyright == auto {
-    copyright = "©  " + str(date.year()) + " Information Processing Society of Japan"
+    copyright = (
+      "©  " + str(date.year()) + " Information Processing Society of Japan"
+    )
   }
 
   // 書体設定
   set text(
     font: (fonts.serif, fonts.serif-ja),
     size: 9.2pt,
-    lang: lang
+    lang: lang,
   )
   show raw: it => {
     set text(font: (fonts.mono, fonts.mono-ja), size: 1.25em)
@@ -223,13 +240,17 @@
         [
           #set par(leading: 0.65em)
           #text(size: 8.5pt, font: fonts.sans-ja)[情報処理学会研究報告] \
-          #text(size: 8pt, stretch: 175%, spacing: 175%)[IPSJ SIG Technical Report]
+          #text(
+            size: 8pt,
+            stretch: 175%,
+            spacing: 175%,
+          )[IPSJ SIG Technical Report]
         ],
         [
           #set text(size: 8pt)
           #set align(right)
           Vol.#volume No.#number \ #date.display("[year]/[month]/[day]")
-        ]
+        ],
       )
     ],
     header-ascent: 1.4em,
@@ -240,10 +261,12 @@
         set text(size: 8pt)
         copyright
       },
-      counter(page).display("1")
-    //   #copyright
+      context {
+        counter(page).display("1")
+      },
+      //   #copyright
     ),
-    footer-descent: 2.4em
+    footer-descent: 2.4em,
   )
 
   set par(first-line-indent: 1em)
@@ -251,15 +274,15 @@
     let numbers = params.pos()
     return numbering(
       if numbers.len() == 1 { "1." } else { "1.1.1" } + "  ",
-      ..numbers
+      ..numbers,
     )
   })
   show ref: it => {
     let el = it.element
     if el != none and el.func() == heading {
-      numbering(  
+      numbering(
         "1.1",
-        ..counter(heading).at(el.location())
+        ..counter(heading).at(el.location()),
       )
       [章]
       h(0pt, weak: true)
@@ -270,29 +293,34 @@
   // show ref
 
   // 最初の段落の字下げを修正
-  show heading: it =>  {
+  show heading: it => {
     it
-    par()[#text(size:0.5em)[#h(0.0em)]]
+    par()[#text(size: 0.5em)[#h(0.0em)]]
   }
 
   /// タイトル
   let title-block(body, en: false) = {
     set align(center)
-    set text(size: if en {1.5em} else {2em})
+    set text(size: if en { 1.5em } else { 2em })
     set par(leading: if en { 0.35em } else { 0.55em })
     v(if en { 2em } else { 2.45em })
     mixed(body) // タイトルへ応用
   } // タイトルのスタイル設定
 
   show figure.where(
-    kind: raw
+    kind: raw,
   ): it => {
-    show raw: set block(stroke: 0.5pt + black, inset: 0.5em, above: 1em, below: 1em)
+    show raw: set block(
+      stroke: 0.5pt + black,
+      inset: 0.5em,
+      above: 1em,
+      below: 1em,
+    )
     set figure(supplement: "1")
     it
   }
   show figure.where(
-    supplement: [表]
+    supplement: [表],
   ): set figure.caption(position: top)
   show figure.caption: set text(size: 0.85em)
 
@@ -321,7 +349,10 @@
         .filter(affiliation => affiliation in author.affiliations)
 
       for (key, affiliation) in current-affiliations.enumerate() {
-        let footnote-marker = super(numbering(footnote-numbering-affiliate, key + 1))
+        let footnote-marker = super(numbering(
+          footnote-numbering-affiliate,
+          key + 1,
+        ))
         footnote-markers.push(footnote-marker)
       }
 
@@ -330,12 +361,18 @@
         .filter(affiliation => affiliation in author.affiliations)
 
       for (key, affiliation) in current-paffiliations.enumerate() {
-        let footnote-marker = super(numbering(footnote-numbering-paffiliate, key + 1))
+        let footnote-marker = super(numbering(
+          footnote-numbering-paffiliate,
+          key + 1,
+        ))
         footnote-markers.push(footnote-marker)
       }
 
       if author.email != none {
-        footnote-markers.push(super(numbering(footnote-numbering-email, emails.position(it => it == author.email) + 1)))
+        footnote-markers.push(super(numbering(
+          footnote-numbering-email,
+          emails.position(it => it == author.email) + 1,
+        )))
       }
 
       for (i, footnote-marker) in footnote-markers.enumerate() {
@@ -353,10 +390,9 @@
     } else {
       v(2.8em)
     }
-  
   }
   set footnote.entry(
-    separator: line(length: 50%, stroke: 0.5pt)
+    separator: line(length: 50%, stroke: 0.5pt),
   )
 
   set footnote.entry(indent: 0pt)
@@ -365,9 +401,9 @@
       columns: (3em, 1fr),
       numbering(
         entry.note.numbering,
-        ..counter(footnote).at(entry.note.location())
+        ..counter(footnote).at(entry.note.location()),
       ),
-      entry.note.body
+      entry.note.body,
     )
   }
   // 一般的な脚注
@@ -380,7 +416,6 @@
   // }
   show "、": "，"
   show "。": "．"
-
 
   show regex(" ?(Lua|Xe|BiB|pdf|p|up)?(La)?TeX(2e)? ?"): it => {
     [ ]
@@ -440,7 +475,8 @@
     ])
   }
   v(2em)
-  { // 本文
+  {
+    // 本文
     set par(leading: 8pt)
     show par: set block(spacing: 8pt)
     // show par: set block(spacing: 1em, above: 0.5em, below: 0.5em)
@@ -488,7 +524,7 @@
       }
     }
   }
-  
+
   if appendix != [] {
     pagebreak()
     counter(heading).update(0)

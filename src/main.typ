@@ -1,4 +1,4 @@
-#import "../lib.typ": techrep, acknowledgement, table, fake-bibliography
+#import "../lib.typ": acknowledgement, fake-bibliography, table, techrep
 
 #import "@preview/roremu:0.1.0": roremu
 
@@ -10,27 +10,27 @@
     "IPSJ": [情報処理学会 \ IPSJ, Chiyoda, Tokyo 101–0062, Japan],
   ),
   paffiliations: (
-    "JU": [現在，情報処理大学 \ Presently with Johoshori University]
+    "JU": [現在，情報処理大学 \ Presently with Johoshori University],
   ),
   authors: (
     (
       name: "情報 太郎",
       name-en: "Taro Joho",
       affiliations: ("IPSJ",),
-      email: "joho.taro@ipsj.or.jp"
+      email: "joho.taro@ipsj.or.jp",
     ),
     (
       name: "処理 花子",
       name-en: "Hanako Shori",
       affiliations: ("IPSJ",),
-      email: none
+      email: none,
     ),
     (
       name: "学会 次郎",
       name-en: "Jiro Gakkai",
       affiliations: ("IPSJ", "JU"),
-      email: "gakkai.jiro@ipsj.or.jp"
-    )
+      email: "gakkai.jiro@ipsj.or.jp",
+    ),
   ),
   abstract: [
     #roremu(250)
@@ -66,5 +66,5 @@
   bibliography: [
     #bibliography("refs.yml", title: "参考文献")
     #fake-bibliography(yaml("refs.yml"), show-unused: false)
-  ]
+  ],
 )

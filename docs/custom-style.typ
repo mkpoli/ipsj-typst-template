@@ -71,7 +71,7 @@
 //   if module-doc.functions.len() > 0 {
 //     list(..module-doc.functions.map(fn => gen-entry(fn.name + "()")))
 //   }
-    
+
 //   if module-doc.variables.len() > 0 {
 //     text([Variables:], weight: "bold")
 //     list(..module-doc.variables.map(var => gen-entry(var.name)))
@@ -79,7 +79,7 @@
 // }
 
 // // Create beautiful, colored type box
-// #let show-type(type, style-args: (:)) = { 
+// #let show-type(type, style-args: (:)) = {
 //   h(2pt)
 //   let clr = style-args.colors.at(type, default: style-args.colors.at("default", default: default-type-color))
 //   box(outset: 2pt, fill: clr, radius: 2pt, raw(type))
@@ -98,10 +98,10 @@
 //     let items = ()
 //     let args = fn.args
 //     for (arg-name, info) in fn.args {
-//       if style-args.omit-private-parameters and arg-name.starts-with("_") { 
+//       if style-args.omit-private-parameters and arg-name.starts-with("_") {
 //         continue
 //       }
-//       let types 
+//       let types
 //       if "types" in info {
 //         types = ": " + info.types.map(x => show-type(x, style-args: style-args)).join(" ")
 //       }
@@ -110,7 +110,7 @@
 //     items.join( if inline-args {", "} else { ",\n  "})
 //     if not inline-args { "\n" } + ")"
 //     if fn.return-types != none {
-//       " -> " 
+//       " -> "
 //       fn.return-types.map(x => show-type(x, style-args: style-args)).join(" ")
 //     }
 //   })
@@ -118,19 +118,19 @@
 
 
 
-// // Create a parameter description block, containing name, type, description and optionally the default value. 
+// // Create a parameter description block, containing name, type, description and optionally the default value.
 // #let show-parameter-block(
 //   name, types, content, style-args,
-//   show-default: false, 
-//   default: none, 
+//   show-default: false,
+//   default: none,
 // ) = block(
 //   inset: 10pt, fill: rgb("ddd3"), width: 100%,
 //   breakable: style-args.break-param-descriptions,
 //   [
 //     #box(heading(level: style-args.first-heading-level + 3, name))
-//     #h(1.2em) 
+//     #h(1.2em)
 //     #types.map(x => (style-args.style.show-type)(x, style-args: style-args)).join([ #text("or",size:.6em) ])
-  
+
 //     #content
 //     #if show-default [ #parbreak() Default: #raw(lang: "typc", default) ]
 //   ]
@@ -149,7 +149,7 @@
 //   ] else [
 //     #heading(fn.name, level: style-args.first-heading-level + 1)
 //   ]
-  
+
 //   eval-docstring(fn.description, style-args)
 
 //   block(breakable: style-args.break-param-descriptions, {
@@ -158,16 +158,16 @@
 //   })
 
 //   for (name, info) in fn.args {
-//     if style-args.omit-private-parameters and name.starts-with("_") { 
+//     if style-args.omit-private-parameters and name.starts-with("_") {
 //       continue
 //     }
 //     let types = info.at("types", default: ())
 //     let description = info.at("description", default: "")
 //     if description == "" and style-args.omit-empty-param-descriptions { continue }
 //     (style-args.style.show-parameter-block)(
-//       name, types, eval-docstring(description, style-args), 
+//       name, types, eval-docstring(description, style-args),
 //       style-args,
-//       show-default: "default" in info, 
+//       show-default: "default" in info,
 //       default: info.at("default", default: none),
 //     )
 //   }
@@ -180,7 +180,7 @@
 //   var, style-args,
 // ) = {
 //   if style-args.colors == auto { style-args.colors = colors }
-//   let type = if "type" not in var { none } 
+//   let type = if "type" not in var { none }
 //       else { show-type(var.type, style-args: style-args) }
 
 //   stack(dir: ltr, spacing: 1.2em,
@@ -192,7 +192,7 @@
 //     ],
 //     type
 //   )
-  
+
 //   eval-docstring(var.description, style-args)
 //   v(4.8em, weak: true)
 // }
@@ -208,7 +208,7 @@
 // #let show-example(
 //   ..args
 // ) = {
-  
+
 //   show-ex(
 //     ..args,
 //     code-block: block.with(radius: 3pt, stroke: .5pt + luma(200)),
@@ -256,7 +256,7 @@
 
 
 // Create beautiful, colored type box
-#let show-type(type) = { 
+#let show-type(type) = {
   h(2pt)
   box(outset: 2pt, fill: get-type-color(type), radius: 2pt, raw(type))
   h(2pt)
@@ -273,50 +273,60 @@
     if not inline-args { "\n  " }
     let items = ()
     for (arg-name, info) in fn.args {
-      let types 
+      let types
       if "types" in info {
         types = ": " + info.types.map(x => display-type-function(x)).join(" ")
       }
       items.push(arg-name + types)
     }
-    items.join( if inline-args {", "} else { ",\n  "})
+    items.join(if inline-args { ", " } else { ",\n  " })
     if not inline-args { "\n" } + ")"
     if fn.return-types != none {
-      " -> " 
+      " -> "
       fn.return-types.map(x => display-type-function(x)).join(" ")
     }
   })
 }
 
 
-// Create a parameter description block, containing name, type, description and optionally the default value. 
+// Create a parameter description block, containing name, type, description and optionally the default value.
 #let show-parameter-block(
-  name, types, content, style-args,
-  show-default: false, 
-  default: none, 
+  name,
+  types,
+  content,
+  style-args,
+  show-default: false,
+  default: none,
 ) = block(
-  inset: 10pt, fill: luma(98%), width: 100%,
+  inset: 10pt,
+  fill: luma(98%),
+  width: 100%,
   breakable: style-args.break-param-descriptions,
   [
     #box(heading(level: style-args.first-heading-level + 3, name))
-    #h(.5cm) 
-    #types.map(x => (style-args.style.show-type)(x)).join([ #text("or",size:.6em) ])
-  
+    #h(.5cm)
+    #(
+      types
+        .map(x => (style-args.style.show-type)(x))
+        .join([ #text("or", size: .6em) ])
+    )
+
     #content
     #if show-default [ #parbreak() Default: #raw(lang: "typc", default) ]
-  ]
+  ],
 )
 
 
 
 #let show-function(
-  fn, style-args,
+  fn,
+  style-args,
 ) = {
   [
     #heading(fn.name, level: style-args.first-heading-level + 1)
     #label(style-args.label-prefix + fn.name + "()")
   ]
-  
+
   eval-docstring(fn.description, style-args)
 
   block(breakable: style-args.break-param-descriptions, {
@@ -327,11 +337,15 @@
   for (name, info) in fn.args {
     let types = info.at("types", default: ())
     let description = info.at("description", default: "")
-    if description == "" and style-args.omit-empty-param-descriptions { continue }
+    if description == "" and style-args.omit-empty-param-descriptions {
+      continue
+    }
     (style-args.style.show-parameter-block)(
-      name, types, eval-docstring(description, style-args), 
+      name,
+      types,
+      eval-docstring(description, style-args),
       style-args,
-      show-default: "default" in info, 
+      show-default: "default" in info,
       default: info.at("default", default: none),
     )
   }
@@ -344,7 +358,10 @@
   if "no-namespace" in style-args {
     output = text(fill: fn-color, raw(name))
   } else {
-    output = text(fill: purple, raw("#" + style-args.label-prefix)) + text(fill: fn-color, raw("." + name))
+    output = (
+      text(fill: purple, raw("#" + style-args.label-prefix))
+        + text(fill: fn-color, raw("." + name))
+    )
   }
   link(label, output)
 }
@@ -356,7 +373,11 @@
   let items = ()
   for fn in module-doc.functions {
     // items.push(link(label(prefix + fn.name + "()"), fn.name + "()"))
-    let ref = show-reference(label(prefix + fn.name + "()"), fn.name + "()", style-args: style-args)
+    let ref = show-reference(
+      label(prefix + fn.name + "()"),
+      fn.name + "()",
+      style-args: style-args,
+    )
     items.push(ref)
   }
   list(..items)
@@ -365,12 +386,12 @@
 #import tidy.show-example: show-example as show-example-base
 
 #let show-example(
-  ..args
+  ..args,
 ) = {
   show-example-base(
     ..args,
     code-block: block.with(radius: 3pt, stroke: .5pt + luma(200)),
     preview-block: block.with(radius: 3pt, fill: rgb("#e4e5ea")),
-    col-spacing: 5pt
+    col-spacing: 5pt,
   )
 }
