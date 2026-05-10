@@ -4,5 +4,5 @@ main.pdf
 fonts/*
 docs/*.pdf
 lib/*.pdf
-src/*.pdf
-template/*
+template/*.pdf
+dist/
