@@ -220,8 +220,7 @@
   // 間隔設定
   // #set page(margin: 1.75in)
   // #set par(leading: 0.55em, first-line-indent: 1.8em, justify: true)
-  show par: set block(spacing: 1em)
-  set par(leading: 0.55em, justify: true)
+  set par(leading: 0.55em, justify: true, spacing: 1em)
   // #set text(font: "New Computer Modern")
   // #show raw: set text(font: "New Computer Modern Mono")
 
@@ -477,8 +476,7 @@
   v(2em)
   {
     // 本文
-    set par(leading: 8pt)
-    show par: set block(spacing: 8pt)
+    set par(leading: 8pt, spacing: 8pt)
     // show par: set block(spacing: 1em, above: 0.5em, below: 0.5em)
 
     for (i, part) in doc.pos().enumerate() {
