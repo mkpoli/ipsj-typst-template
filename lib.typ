@@ -1,5 +1,5 @@
 #import "lib/mixed-font.typ": mixed as mixed-font
-#import "lib/latex.typ": draw-TeX
+#import "lib/latex.typ": draw-tex
 #import "lib/bibliography.typ": fake-bibliography
 #import "lib/number.typ": n
 #import "@preview/tablex:0.0.8": tablex
@@ -419,7 +419,7 @@
 
   show regex(" ?(Lua|Xe|BiB|pdf|p|up)?(La)?TeX(2e)? ?"): it => {
     [ ]
-    draw-TeX(it.text.trim())
+    draw-tex(it.text.trim())
     [ ]
   }
 

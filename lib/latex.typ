@@ -72,7 +72,7 @@
 
 /// Draw TeX logo
 /// text (string): the text to be typeset. Examples: "LaTeX", "TeX", "LaTeX2e", "LuaLaTeX", "XeLaTeX", "pdfLaTeX", "pdfTeX", "LaTeX2ε", etc.
-#let draw-TeX(tex) = {
+#let draw-tex(tex) = {
   set text(font: "New Computer Modern Math")
   box(
     if (tex == "LaTeX") {
