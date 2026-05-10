@@ -21,11 +21,87 @@
 * 学会から承認されたものではないため、利用は自己責任となります。本テンプレートを利用したことによる一切の損害について責任を負いません。
 * 正式な提出時は必ず[公式テンプレート](https://www.ipsj.or.jp/journal/submit/style.html)で再組版・確認してください。
 
-## 使い方
+## クイックスタート
 
-本テンプレートは [Tyler](https://github.com/mkpoli/tyler) で管理されています。Tyler を使ってローカル Typst パッケージとしてインストール・利用するのが推奨フローです。
+新しい原稿ディレクトリを作成（Typst Universe にて公開後）:
 
-### 1. Tyler のインストール
+```bash
+typst init @preview/ipsj-template:0.1.0 my-report
+cd my-report
+typst compile main.typ
+```
+
+## 基本的な使い方
+
+`techrep` を `#show` ルールで適用するだけで、研究報告のレイアウト・書式が自動で組まれます。
+
+```typst
+#import "@preview/ipsj-template:0.1.0": techrep, acknowledgement, fake-bibliography
+
+#show: techrep.with(
+  title: [Typstによる情報処理研究報告の作成法],
+  title-en: "How to write IPSJ SIG Technical Report with Typst",
+  affiliations: (
+    "IPSJ": [情報処理学会 \ IPSJ, Chiyoda, Tokyo 101–0062, Japan],
+  ),
+  authors: (
+    (
+      name: "情報 太郎",
+      name-en: "Taro Joho",
+      affiliations: ("IPSJ",),
+      email: "joho.taro@ipsj.or.jp",
+    ),
+  ),
+  abstract: [本稿では，情報処理学会研究報告のスタイルを Typst で再現するテンプレートを示す．],
+  abstract-en: [This paper presents a Typst template ...],
+  keywords: ("情報処理学会", "研究報告", "Typst"),
+  keywords-en: ("IPSJ", "Technical Report", "Typst"),
+  bibliography: bibliography("refs.yml", title: "参考文献"),
+)
+
+= はじめに
+
+本文をここに書きます．
+
+= おわりに
+
+#acknowledgement[本研究は ... の支援を受けた．]
+```
+
+`typst init` で生成された `main.typ` には上記と同等の雛形が含まれています。`refs.yml` を参考文献として編集してください。
+
+### `techrep` の主な引数
+
+| 引数 | 型 | 説明 |
+|---|---|---|
+| `title` | content | 和文タイトル |
+| `title-en` | string \| content | 英文タイトル |
+| `affiliations` | dictionary | 所属（キー → 表示名） |
+| `paffiliations` | dictionary | 現所属 |
+| `authors` | array of dict | 著者情報（`name` / `name-en` / `affiliations` / `email`） |
+| `abstract` | content | 和文概要 |
+| `abstract-en` | content | 英文概要 |
+| `keywords` | array | 和文キーワード |
+| `keywords-en` | array | 英文キーワード |
+| `volume` / `number` | string / int | 巻号 |
+| `date` | datetime \| auto | 発行日（既定 `auto` で本日） |
+| `bibliography` | content | 参考文献ブロック |
+| `appendix` | content | 付録 |
+| `fonts` | dictionary | 和文／欧文フォントの上書き |
+
+引数の詳細やデフォルト値は [`lib.typ`](./lib.typ) のドキュメントコメントを参照してください。
+
+### その他の公開関数
+
+* `acknowledgement(body)` — 「謝辞」セクションを組む
+* `fake-bibliography(yaml-data, show-unused: false)` — 参考文献の見た目だけを組む補助関数
+* `table(..)` — IPSJ 風の罫線・スタイルを当てた表
+
+## 開発・ローカルインストール（Tyler）
+
+本リポジトリは [Tyler](https://github.com/mkpoli/tyler) で管理されています。手元で改変したテンプレートを試す場合は、Universe ではなくローカルパッケージとしてインストールできます。
+
+### 1. Tyler を導入
 
 ```bash
 bun i -g @mkpoli/tyler
@@ -33,7 +109,7 @@ bun i -g @mkpoli/tyler
 npm install -g @mkpoli/tyler
 ```
 
-### 2. 本テンプレートをローカルにインストール
+### 2. ローカルにビルド & インストール
 
 リポジトリのルートで:
 
@@ -41,15 +117,7 @@ npm install -g @mkpoli/tyler
 tyler build -i
 ```
 
-これでビルド成果物が `@local/ipsj-template:<version>` としてローカル Typst パッケージに登録されます。
-
-### 3. 利用
-
-新しい原稿ディレクトリを作成:
-
-```bash
-typst init @local/ipsj-template:0.0.0 my-report
-```
+これでビルド成果物が `@local/ipsj-template:0.1.0` としてローカル Typst パッケージに登録され、`typst init @local/ipsj-template:0.1.0 my-report` で利用できます。
 
 ## 参照用ファイル
 
