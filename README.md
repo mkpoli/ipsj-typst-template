@@ -25,7 +25,7 @@
 新しい原稿ディレクトリを作成（Typst Universe にて公開後）:
 
 ```bash
-typst init @preview/ipsj-template:0.1.0 my-report
+typst init @preview/joho-ipsj:0.1.0 my-report
 cd my-report
 typst compile main.typ
 ```
@@ -35,7 +35,7 @@ typst compile main.typ
 `techrep` を `#show` ルールで適用するだけで、研究報告のレイアウト・書式が自動で組まれます。
 
 ```typst
-#import "@preview/ipsj-template:0.1.0": techrep, acknowledgement, fake-bibliography
+#import "@preview/joho-ipsj:0.1.0": techrep, acknowledgement, fake-bibliography
 
 #show: techrep.with(
   title: [Typstによる情報処理研究報告の作成法],
@@ -116,7 +116,7 @@ npm install -g @mkpoli/tyler
 tyler build -i
 ```
 
-これでビルド成果物が `@local/ipsj-template:0.1.0` としてローカル Typst パッケージに登録され、`typst init @local/ipsj-template:0.1.0 my-report` で利用できます。
+これでビルド成果物が `@local/joho-ipsj:0.1.0` としてローカル Typst パッケージに登録され、`typst init @local/joho-ipsj:0.1.0 my-report` で利用できます。
 
 ## 参照用ファイル
 
