@@ -17,8 +17,18 @@ keywords = [
     "Digital Humanities",
 ]
 categories = ["paper", "report"]
+exclude = [
+    "compare/**",
+    "docs/**",
+    "*.ps1",
+    ".gitignore",
+]
 
 [template]
 entrypoint = "main.typ"
 path = "template"
 thumbnail = "thumbnail.png"
+
+[tool.tyler]
+srcdir = "."
+outdir = "dist"
