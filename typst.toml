@@ -8,21 +8,16 @@ authors = ["mkpoli <mkpoli@mkpo.li>"]
 license = "MIT"
 description = "IPSJ Technial Report template"
 keywords = [
-    "Information Processing Society of Japan",
-    "IPSJ",
-    "japanese",
-    "Computer Science",
-    "Computer Engineering",
-    "Software",
-    "Digital Humanities",
+  "Information Processing Society of Japan",
+  "IPSJ",
+  "japanese",
+  "Computer Science",
+  "Computer Engineering",
+  "Software",
+  "Digital Humanities",
 ]
 categories = ["paper", "report"]
-exclude = [
-    "compare/**",
-    "docs/**",
-    "*.ps1",
-    ".gitignore",
-]
+exclude = ["compare/**", "docs/**", "*.ps1", ".gitignore"]
 
 [template]
 entrypoint = "main.typ"
