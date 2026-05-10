@@ -2,7 +2,7 @@
 #import "lib/latex.typ": draw-tex
 #import "lib/bibliography.typ": fake-bibliography
 #import "lib/number.typ": n
-#import "@preview/tablex:0.0.8": tablex
+#import "@preview/tablex:0.0.9": tablex
 
 #let std-bibliography = bibliography
 
