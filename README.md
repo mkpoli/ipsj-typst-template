@@ -123,3 +123,9 @@ tyler build -i
 * [情報処理学会研究報告テンプレート](https://www.ipsj.or.jp/journal/submit/style.html)
 * [研究報告原稿（PDFファイル）作成について](https://www.ipsj.or.jp/kenkyukai/genko.html)
 * [ken1row/IPSJ-techrep-xelatex](https://github.com/ken1row/IPSJ-techrep-xelatex/)
+
+## スポンサー
+
+Typstで学会の原稿を書きたい人のために、このテンプレートを一人で作っています。今は仕事がなく、わずかなTAの給料では家賃や食費もまかなえません。[Ko-fi](https://ko-fi.com/mkpoli)で1ドルでも応援していただけると、今日のごはん代になります。企業スポンサーのご相談はmkpoli@mkpo.liまでどうぞ。
+
+[![Support me on Ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/mkpoli)
