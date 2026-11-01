@@ -126,6 +126,6 @@ tyler build -i
 
 ## スポンサー
 
-情報処理学会テンプレートは個人で開発しており、外部からの資金援助はなく、どなたでも無料でご利用いただけます。お役に立っているようでしたら、[Ko-fi](https://ko-fi.com/mkpoli)でチップをいただけると、改善を続ける時間になります。スポンサーにご興味のある企業様は、mkpoli@mkpo.liまでご連絡ください。
+情報処理学会テンプレートは個人で開発しており、外部からの資金援助はなく、どなたでも無料でご利用いただけます。お役に立っているようでしたら、[Ko-fi](https://ko-fi.com/mkpoli)または[OFUSE](https://ofuse.me/mkpoli)でチップをいただけると、改善を続ける時間になります。スポンサーにご興味のある企業様は、mkpoli@mkpo.liまでご連絡ください。
 
 [![Support me on Ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/mkpoli)
